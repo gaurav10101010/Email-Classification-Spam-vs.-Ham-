@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Classification</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .result-section {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center">
+            <h1 class="display-4">Email Classification</h1>
+            <p class="lead">Paste your email content below to classify it as Ham or Spam.</p>
+        </div>
+
+        <!-- Form for email submission -->
+        <form action="{{ url_for('prediction') }}" method="post">
+            <div class="form-group">
+                <label for="emailInput">Email Content</label>
+                <textarea class="form-control" id="emailInput" name="emailContent" rows="8" placeholder="Paste your email content here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Classify Email</button>
+        </form>
+
+        <!-- Result Section -->
+        <div class="result-section">
+            {% if output %}
+            <h3 class="text-center">output:</h3>
+            <p class="text-center display-4 {% if result == 'Spam' %}text-danger{% else %}text-success{% endif %}">{{ output }}</p>
+            {% else %}
+            <h3 class="text-center">output:</h3>
+            <p class="text-center">Please submit an email to see the result.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
